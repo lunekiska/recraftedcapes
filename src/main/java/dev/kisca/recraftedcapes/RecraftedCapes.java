@@ -1,12 +1,9 @@
 package dev.kisca.recraftedcapes;
 
-import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.logging.LogUtils;
 import dev.kisca.recraftedcapes.compat.curios.CapeIntegration;
 import dev.kisca.recraftedcapes.recipe.ShapedCapeRecipe;
 import dev.kisca.recraftedcapes.recipe.ShapelessCapeRecipe;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -22,12 +19,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 
-import java.io.*;
 import java.nio.file.Path;
 
 @Mod("recraftedcapes")
@@ -35,8 +30,6 @@ public class RecraftedCapes
 {
     public static final String MODID = "recraftedcapes";
     public static final String CURIOS_MODID = "curios";
-
-    public static File ABSOLUTE_PATH = new File(System.getProperty("user.dir"));
 	
     private static final Logger LOG = LogUtils.getLogger();
 
@@ -65,37 +58,16 @@ public class RecraftedCapes
     {
         try
         {
-            Path dir = FMLPaths.GAMEDIR.get();
-            int i = registerTexturesIn(dir = dir.resolve("capes"));
-            i += registerTexturesIn(dir.resolve("elytras"));
-            LOG.info("Successfully loaded {} cape textures.", i);
+            new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png");
         }
         catch (Throwable e)
         {
-            LOG.error("Failed to load cape textures for ItemCapes. Report immediately to author with logs.", e);
+            LOG.error("Failed to load cape textures for RecraftedCapes. Report immediately to author with logs.", e);
         }
     }
 
-    @SuppressWarnings({"UnstableApiUsage"})
-    private static int registerTexturesIn(Path dir) throws IOException {
-
-        FileFilter fileFilter = new WildcardFileFilter("*.png");
-        dir = dir.resolve(dir);
-        File[] found = dir.toFile().listFiles(fileFilter);
-        assert found != null;
-        for (File file : found)
-        {
-            ResourceLocation name = id(com.google.common.io.Files.getNameWithoutExtension(file.getName()));
-            DynamicTexture texture = new DynamicTexture(NativeImage.read(new FileInputStream(file)));
-
-            Minecraft.getInstance().getTextureManager().register(name, texture);
-        }
-        return found.length; // Just return the length, errors out without this anyway.
-    }
-
-    public static ResourceLocation id(String path)
-    {
-        return new ResourceLocation(MODID, path);
+    private static void registerTexturesIn(Path dir){
+            new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png");
     }
 
     public static class Config

@@ -1,7 +1,6 @@
 package dev.kisca.recraftedcapes.mixins.client;
 
 import dev.kisca.recraftedcapes.CapeItem;
-import dev.kisca.recraftedcapes.RecraftedCapes;
 import dev.kisca.recraftedcapes.compat.curios.ClientCapeIntegration;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -13,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.FMLPaths;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,7 +31,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
         ItemStack chestStack = entity.getItemBySlot(EquipmentSlot.CHEST);
         if (chestStack.is(CapeItem.ITEM.get()) && (CapeItem.getId(chestStack) != null)) {
             ResourceLocation capeId = CapeItem.getId(chestStack);
-            cir.setReturnValue(new ResourceLocation(RecraftedCapes.ABSOLUTE_PATH.toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png"));
+            cir.setReturnValue(new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png"));
         }
         if (entity instanceof Player player && ModList.get().isLoaded("curios")) {
             ClientCapeIntegration.curiosElytraInject(stack, player, cir);

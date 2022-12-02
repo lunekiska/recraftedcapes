@@ -64,7 +64,7 @@ public class CapeItem extends Item implements ICurioItem {
             String string = tag.getString(CAPE_TYPE_NBT);
             if (!string.isEmpty()) type = string;
         }
-        desc.add(new TextComponent("item.recraftedcapes.cape.desc").withStyle(ChatFormatting.GOLD)
+        desc.add(new TextComponent("Cape Design").withStyle(ChatFormatting.GOLD)
                 .append(new TextComponent(": ").withStyle(ChatFormatting.AQUA))
                 .append(new TextComponent(type.replace('_', ' ')).withStyle(ChatFormatting.YELLOW)));
     }
