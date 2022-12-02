@@ -70,6 +70,10 @@ public class RecraftedCapes
             new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png");
     }
 
+    public static ResourceLocation id(String path)
+    {
+        return new ResourceLocation(MODID, path);
+    }
     public static class Config
     {
         public static final Config INSTANCE;
