@@ -64,7 +64,7 @@ public abstract class CapeLayerMixin extends RenderLayer<AbstractClientPlayer, P
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
             pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(f3 / 2.0F));
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f3 / 2.0F));
-            VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entitySolid(new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png")));
+            VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entitySolid(new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.getCapeType() + ".png")));
             this.getParentModel().renderCloak(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY);
             pMatrixStack.popPose();
             ci.cancel();

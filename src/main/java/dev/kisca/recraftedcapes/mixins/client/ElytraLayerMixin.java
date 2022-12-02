@@ -31,7 +31,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
         ItemStack chestStack = entity.getItemBySlot(EquipmentSlot.CHEST);
         if (chestStack.is(CapeItem.ITEM.get()) && (CapeItem.getId(chestStack) != null)) {
             ResourceLocation capeId = CapeItem.getId(chestStack);
-            cir.setReturnValue(new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png"));
+            cir.setReturnValue(new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.getCapeType() + ".png"));
         }
         if (entity instanceof Player player && ModList.get().isLoaded("curios")) {
             ClientCapeIntegration.curiosElytraInject(stack, player, cir);

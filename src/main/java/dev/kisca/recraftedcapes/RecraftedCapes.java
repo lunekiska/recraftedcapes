@@ -4,8 +4,10 @@ import com.mojang.logging.LogUtils;
 import dev.kisca.recraftedcapes.compat.curios.CapeIntegration;
 import dev.kisca.recraftedcapes.recipe.ShapedCapeRecipe;
 import dev.kisca.recraftedcapes.recipe.ShapelessCapeRecipe;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.RegistryEvent;
@@ -30,7 +32,6 @@ public class RecraftedCapes
 {
     public static final String MODID = "recraftedcapes";
     public static final String CURIOS_MODID = "curios";
-	
     private static final Logger LOG = LogUtils.getLogger();
 
     public RecraftedCapes()
@@ -58,7 +59,7 @@ public class RecraftedCapes
     {
         try
         {
-            new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png");
+            new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.getCapeType() + ".png");
         }
         catch (Throwable e)
         {
@@ -66,8 +67,9 @@ public class RecraftedCapes
         }
     }
 
-    private static void registerTexturesIn(Path dir){
-            new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png");
+    private static void registerTexturesIn(Path dir, ItemStack itemStack){
+
+        new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.getCapeType() + ".png");
     }
 
     public static ResourceLocation id(String path)
