@@ -19,11 +19,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLPaths;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static dev.kisca.recraftedcapes.RecraftedCapes.dynamicCapeTexture;
+import static dev.kisca.recraftedcapes.RecraftedCapes.s;
 
 @Mixin(CapeLayer.class)
 public abstract class CapeLayerMixin extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
@@ -64,7 +66,7 @@ public abstract class CapeLayerMixin extends RenderLayer<AbstractClientPlayer, P
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
             pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(f3 / 2.0F));
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f3 / 2.0F));
-            VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entitySolid(new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.getCapeType() + ".png")));
+            VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entitySolid(new ResourceLocation(dynamicCapeTexture(s))));
             this.getParentModel().renderCloak(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY);
             pMatrixStack.popPose();
             ci.cancel();

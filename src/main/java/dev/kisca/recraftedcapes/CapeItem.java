@@ -24,8 +24,6 @@ public class CapeItem extends Item implements ICurioItem {
 
     public static final String CAPE_TYPE_NBT = "CapeType"; // Key for ResourceLocation
 
-    public static final ResourceLocation DEFAULT_CAPE = RecraftedCapes.id("textures/item/red.png");
-
     public CapeItem()
     {
         super(new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1).tab(CreativeModeTab.TAB_TOOLS));
@@ -40,12 +38,6 @@ public class CapeItem extends Item implements ICurioItem {
             return new ResourceLocation(capeTag);
         }
         return null;
-    }
-
-    public static CompoundTag getCapeType() {
-        ItemStack cape = new ItemStack(CapeItem.ITEM.get());
-        cape.setTag(new CompoundTag());
-        return cape.getTagElement("cape_type");
     }
 
     @Nonnull

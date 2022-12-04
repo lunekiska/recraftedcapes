@@ -4,10 +4,8 @@ import com.mojang.logging.LogUtils;
 import dev.kisca.recraftedcapes.compat.curios.CapeIntegration;
 import dev.kisca.recraftedcapes.recipe.ShapedCapeRecipe;
 import dev.kisca.recraftedcapes.recipe.ShapelessCapeRecipe;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.RegistryEvent;
@@ -34,8 +32,7 @@ public class RecraftedCapes
     public static final String CURIOS_MODID = "curios";
     private static final Logger LOG = LogUtils.getLogger();
 
-    public RecraftedCapes()
-    {
+    public RecraftedCapes() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         bus.addListener(this::enqueueIMC);
@@ -50,6 +47,12 @@ public class RecraftedCapes
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
     }
 
+    public static final String s = FMLPaths.GAMEDIR.get() + "/capes/" + "%s" + ".png";
+    public static String dynamicCapeTexture(String name)
+    {
+        return s.replace("%s", name);
+    }
+
     private void enqueueIMC(final InterModEnqueueEvent event) {
         if (ModList.get().isLoaded("curios")) {
             CapeIntegration.InqueueIMC();
@@ -59,17 +62,12 @@ public class RecraftedCapes
     {
         try
         {
-            new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.getCapeType() + ".png");
+            new ResourceLocation(dynamicCapeTexture(s));
         }
         catch (Throwable e)
         {
             LOG.error("Failed to load cape textures for RecraftedCapes. Report immediately to author with logs.", e);
         }
-    }
-
-    private static void registerTexturesIn(Path dir, ItemStack itemStack){
-
-        new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.getCapeType() + ".png");
     }
 
     public static ResourceLocation id(String path)

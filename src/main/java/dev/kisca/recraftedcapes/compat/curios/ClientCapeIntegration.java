@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import dev.kisca.recraftedcapes.CapeItem;
-import dev.kisca.recraftedcapes.RecraftedCapes;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -17,13 +16,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Optional;
+
+import static dev.kisca.recraftedcapes.RecraftedCapes.dynamicCapeTexture;
+import static dev.kisca.recraftedcapes.RecraftedCapes.s;
 
 public class ClientCapeIntegration
 {
@@ -59,7 +60,7 @@ public class ClientCapeIntegration
                 pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(6.0F + f2 / 2.0F + f1));
                 pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(f3 / 2.0F));
                 pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f3 / 2.0F));
-                VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entityCutoutNoCull(new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png")));
+                VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entityCutoutNoCull(new ResourceLocation(dynamicCapeTexture(s))));
                 model.renderCloak(pMatrixStack, vertexconsumer, p_116617_, OverlayTexture.NO_OVERLAY);
                 pMatrixStack.popPose();
                 ci.cancel();
@@ -73,7 +74,7 @@ public class ClientCapeIntegration
         if (chestStack != null) {
             if (chestStack.is(CapeItem.ITEM.get()) && (CapeItem.getId(chestStack) != null)) {
                 ResourceLocation capeId = CapeItem.getId(chestStack);
-                cir.setReturnValue(new ResourceLocation(FMLPaths.GAMEDIR.get().toString(), "/capes/" + CapeItem.CAPE_TYPE_NBT + ".png"));
+                cir.setReturnValue(new ResourceLocation(dynamicCapeTexture(s)));
             }
         }
 
