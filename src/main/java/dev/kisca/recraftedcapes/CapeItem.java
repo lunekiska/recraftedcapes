@@ -23,21 +23,12 @@ public class CapeItem extends Item implements ICurioItem {
     public static final RegistryObject<Item> ITEM = RegistryObject.create(RecraftedCapes.id("cape"), ForgeRegistries.ITEMS);
 
     public static final String CAPE_TYPE_NBT = "CapeType"; // Key for ResourceLocation
+    public static final ResourceLocation DEFAULT_CAPE = RecraftedCapes.id("textures/red.png");
 
     public CapeItem()
     {
         super(new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1).tab(CreativeModeTab.TAB_TOOLS));
         setRegistryName(ITEM.getId());
-    }
-
-    public static ResourceLocation getId(ItemStack itemstack) {
-        CompoundTag compoundTag = itemstack.getTag();
-        if (compoundTag != null)
-        {
-            String capeTag = compoundTag.getString(CAPE_TYPE_NBT);
-            return new ResourceLocation(capeTag);
-        }
-        return null;
     }
 
     @Nonnull

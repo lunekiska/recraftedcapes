@@ -47,3 +47,10 @@ A Minecraft mod which delegates capes as an item to be used as a Curios!
     versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.recraftedcapes]]
+    modId="curios"
+    mandatory=true
+    versionRange="[1.18.2-5.0.7.1,)"
+    ordering="NONE"
+    side="BOTH"
